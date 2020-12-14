@@ -1,0 +1,15 @@
+b'\x02Q,078,007.10,K,00,\x0311\r\n'
+02 51 2c 30 37 38 2c 30 30 37 2e 31 30 2c 4b 2c 30 30 2c 03 31 31 0d 0a
+Speed: 7.1, Direction: 78, Units: K, Status: 00
+b'\x02Q,083,007.22,K,00,\x0314\r\n'
+02 51 2c 30 38 33 2c 30 30 37 2e 32 32 2c 4b 2c 30 30 2c 03 31 34 0d 0a
+Speed: 7.22, Direction: 83, Units: K, Status: 00
+b'\x02Q,083,007.16,K,00,\x0313\r\n'
+02 51 2c 30 38 33 2c 30 30 37 2e 31 36 2c 4b 2c 30 30 2c 03 31 33 0d 0a
+Speed: 7.16, Direction: 83, Units: K, Status: 00
+b'\x02Q,081,007.47,K,00,\x0315\r\n'
+02 51 2c 30 38 31 2c 30 30 37 2e 34 37 2c 4b 2c 30 30 2c 03 31 35 0d 0a
+Speed: 7.47, Direction: 81, Units: K, Status: 00
+b'\x02Q,082,007.31,K,00,\x0317\r\n'
+02 51 2c 30 38 32 2c 30 30 37 2e 33 31 2c 4b 2c 30 30 2c 03 31 37 0d 0a
+Speed: 7.31, Direction: 82, Units: K, Status: 00
