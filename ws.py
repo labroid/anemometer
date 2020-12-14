@@ -18,18 +18,12 @@ class Wind(BaseModel):
 bpattern = re.compile(b"\x02(?P<payload>.*)\x03(?P<checksum>.*)\x0d\x0a")
 pattern = re.compile("Q,(?P<heading>.*),(?P<speed>.*),(?P<units>.*),(?P<status>.*),")
 
-EN_485 = 4
-GPIO.setmode(GPIO.BCM)
-GPIO.setup(EN_485, GPIO.OUT)
-GPIO.output(EN_485, GPIO.LOW)
 
-with serial.Serial("/dev/serial0", 9600, timeout=0.5) as ser:
+def main():
+    setup_pins()
+    reading = generate_raw_anemometer_bytes()
     while True:
-        ser.write(b"?Q")
-        s = ser.readall()
-        t = (
-            time.clock_gettime_ns(time.CLOCK_REALTIME) // 1000000
-        )  # Epoch in milliseconds
+        s, t = next(reading)
         match = bpattern.match(s)
         chk_sum = 0
         for c in match["payload"]:
@@ -50,4 +44,26 @@ with serial.Serial("/dev/serial0", 9600, timeout=0.5) as ser:
         except ValidationError as e:
             print(e)  # TODO this should be logged
 
-            print(json.dumps(answer.dict()))
+        print(json.dumps(answer.dict()))
+
+
+def setup_pins():
+    EN_485 = 4
+    GPIO.setmode(GPIO.BCM)
+    GPIO.setup(EN_485, GPIO.OUT)
+    GPIO.output(EN_485, GPIO.LOW)
+
+
+def generate_raw_anemometer_bytes():
+    with serial.Serial("/dev/serial0", 9600, timeout=0.5) as ser:
+        while True:
+            ser.write(b"?Q")
+            s = ser.readall()
+            t = (
+                    time.clock_gettime_ns(time.CLOCK_REALTIME) // 1000000
+            )  # Epoch in
+            yield s, t
+
+
+if __name__ == '__main__':
+    main()
